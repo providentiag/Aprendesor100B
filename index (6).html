@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grupo Aprendesor — Tracker de Crecimiento</title>
+<meta name="description" content="Tracker público de crecimiento de Grupo Aprendesor — 3 fases, 10 marcas, una meta: 100 billones de views y 500M de seguidores.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════
+   TOKENS
+════════════════════════════ */
+:root{
+  --navy:      #00167a;
+  --navy-deep: #000f57;
+  --navy-mid:  #0a1f8f;
+  --orange:    #ff751f;
+  --orange-dk: #e05800;
+  --orange-lt: #ff8f42;
+  --white:     #ffffff;
+  --off:       #f5f6fa;
+  --g100:      #f0f2f8;
+  --g200:      #e2e5f0;
+  --g400:      #9399b2;
+  --g600:      #5a6080;
+  --text:      #1a1d2e;
+  --green:     #16a34a;
+  --green-lt:  #22c55e;
+  --r:         12px;
+  --r-sm:      8px;
+  --sh:        0 4px 24px rgba(0,22,122,.07);
+  --sh-md:     0 8px 40px rgba(0,22,122,.11);
+  --sh-lg:     0 20px 64px rgba(0,22,122,.16);
+  --trans:     .25s cubic-bezier(.4,0,.2,1);
+}
+
+/* ════════════════════════════
+   RESET & BASE
+════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Montserrat',sans-serif;
+  background:var(--white);
+  color:var(--text);
+  font-size:15px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ════════════════════════════
+   NAV
+════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(0,22,122,.96);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  transition:box-shadow var(--trans);
+}
+nav.scrolled{box-shadow:0 4px 32px rgba(0,15,87,.4);}
+
+.nav-logo{
+  font-size:15px;font-weight:900;color:#fff;
+  letter-spacing:-.02em;text-decoration:none;
+  display:flex;align-items:center;gap:10px;
+}
+.nav-logo span{color:var(--orange);}
+.nav-dot{
+  width:7px;height:7px;
+  background:var(--orange);border-radius:50%;
+  animation:pulse-dot 2.4s ease infinite;
+}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+.nav-links a{
+  font-size:12px;font-weight:600;
+  color:rgba(255,255,255,.6);
+  text-decoration:none;letter-spacing:.03em;
+  transition:color var(--trans);
+  position:relative;padding-bottom:2px;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:1px;background:var(--orange);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform var(--trans);
+}
+.nav-links a:hover{color:#fff;}
+.nav-links a:hover::after{transform:scaleX(1);}
+
+/* ════════════════════════════
+   HERO
+════════════════════════════ */
+.hero{
+  min-height:100vh;
+  background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 55%,var(--navy-mid) 100%);
+  display:flex;align-items:center;
+  padding:100px 48px 80px;
+  position:relative;overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:52px 52px;
+}
+.hero-glow{
+  position:absolute;width:800px;height:800px;
+  background:radial-gradient(circle,rgba(255,117,31,.11) 0%,transparent 60%);
+  top:-250px;right:-180px;pointer-events:none;
+}
+.hero-glow2{
+  position:absolute;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(255,255,255,.035) 0%,transparent 65%);
+  bottom:-120px;left:100px;pointer-events:none;
+}
+/* subtle diagonal line decoration */
+.hero-line{
+  position:absolute;
+  width:1px;height:60%;
+  background:linear-gradient(transparent,rgba(255,117,31,.2),transparent);
+  right:48%;top:20%;
+  pointer-events:none;
+}
+
+.hero-inner{
+  max-width:1100px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;position:relative;
+}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,117,31,.14);
+  border:1px solid rgba(255,117,31,.28);
+  color:var(--orange-lt);
+  font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  padding:6px 14px;border-radius:100px;
+  margin-bottom:24px;
+  opacity:0;animation:fadeUp .7s ease .1s forwards;
+}
+.hero-eyebrow::before{
+  content:'';width:6px;height:6px;
+  background:var(--orange);border-radius:50%;
+  animation:pulse-dot 2.4s ease infinite;
+}
+.hero-h1{
+  font-size:clamp(34px,5.5vw,60px);font-weight:900;
+  color:#fff;letter-spacing:-.04em;line-height:1.02;
+  margin-bottom:22px;
+  opacity:0;animation:fadeUp .7s ease .2s forwards;
+}
+.hero-h1 em{font-style:normal;color:var(--orange);}
+.hero-sub{
+  font-size:16px;color:rgba(255,255,255,.58);
+  line-height:1.85;margin-bottom:36px;
+  font-weight:400;
+  opacity:0;animation:fadeUp .7s ease .3s forwards;
+}
+.hero-ctas{
+  display:flex;gap:12px;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .7s ease .4s forwards;
+}
+
+/* ════════════════════════════
+   BUTTONS
+════════════════════════════ */
+.btn-primary{
+  background:var(--orange);color:#fff;
+  padding:13px 26px;border-radius:var(--r-sm);
+  font-weight:700;font-size:13px;letter-spacing:.01em;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  transition:background var(--trans),transform var(--trans),box-shadow var(--trans);
+  box-shadow:0 4px 20px rgba(255,117,31,.3);
+}
+.btn-primary:hover{background:var(--orange-dk);transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,117,31,.4);}
+
+.btn-outline{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.18);
+  color:#fff;padding:13px 26px;border-radius:var(--r-sm);
+  font-weight:600;font-size:13px;
+  text-decoration:none;
+  transition:background var(--trans),transform var(--trans);
+}
+.btn-outline:hover{background:rgba(255,255,255,.14);transform:translateY(-2px);}
+
+/* ════════════════════════════
+   HERO STAT CARDS
+════════════════════════════ */
+.hero-stat-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+  opacity:0;animation:fadeUp .7s ease .55s forwards;
+}
+.hstat{
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r);padding:24px 20px;
+  transition:background var(--trans),border-color var(--trans),transform var(--trans);
+  cursor:default;
+}
+.hstat:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18);transform:translateY(-2px);}
+.hstat-num{
+  font-size:clamp(28px,4vw,44px);font-weight:900;
+  color:#fff;letter-spacing:-.05em;line-height:1;
+  margin-bottom:8px;
+  font-variant-numeric:tabular-nums;
+}
+.hstat-num .accent{color:var(--orange);}
+.hstat-lbl{font-size:11px;color:rgba(255,255,255,.4);font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;}
+
+/* ════════════════════════════
+   LAYOUT UTILITIES
+════════════════════════════ */
+.container{max-width:1100px;margin:0 auto;padding:0 48px;}
+.section{padding:96px 0;}
+.section-alt{background:var(--off);}
+.section-dark{background:linear-gradient(135deg,var(--navy-deep),var(--navy));position:relative;overflow:hidden;}
+.section-dark::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+  background-size:48px 48px;pointer-events:none;
+}
+
+.sec-label{
+  font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--orange);margin-bottom:12px;
+  display:flex;align-items:center;gap:10px;
+}
+.sec-label::before{content:'';width:20px;height:2px;background:var(--orange);flex-shrink:0;}
+.sec-label.light{color:var(--orange-lt);}
+.sec-label.light::before{background:var(--orange-lt);}
+
+.sec-title{
+  font-size:clamp(26px,4vw,42px);font-weight:800;
+  letter-spacing:-.03em;line-height:1.1;color:var(--text);margin-bottom:16px;
+}
+.sec-title em{font-style:normal;color:var(--orange);}
+.sec-title.light{color:#fff;}
+.sec-body{font-size:16px;color:var(--g600);line-height:1.8;max-width:560px;}
+.sec-body.light{color:rgba(255,255,255,.58);}
+
+/* ════════════════════════════
+   SCROLL REVEAL
+════════════════════════════ */
+.reveal{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1);
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.1s;}
+.reveal-delay-2{transition-delay:.2s;}
+.reveal-delay-3{transition-delay:.3s;}
+.reveal-delay-4{transition-delay:.4s;}
+
+/* ════════════════════════════
+   TRACKER
+════════════════════════════ */
+.progress-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r);padding:48px;
+  margin-bottom:28px;
+}
+.prog-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;flex-wrap:wrap;gap:12px;}
+.prog-current{
+  font-size:clamp(38px,6vw,68px);font-weight:900;
+  color:#fff;letter-spacing:-.05em;line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.prog-current span{color:var(--orange);}
+.prog-target-block{text-align:right;}
+.prog-target-lbl{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:4px;}
+.prog-target{font-size:18px;font-weight:800;color:rgba(255,255,255,.3);letter-spacing:-.02em;}
+
+.prog-bar-bg{
+  width:100%;height:16px;
+  background:rgba(255,255,255,.07);
+  border-radius:100px;overflow:hidden;margin-bottom:8px;
+}
+.prog-bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--navy-mid) 0%,var(--orange) 100%);
+  border-radius:100px;
+  transition:width 1.4s cubic-bezier(.4,0,.2,1);
+  min-width:5px;position:relative;
+}
+.prog-bar-fill::after{
+  content:'';position:absolute;
+  top:0;right:0;bottom:0;width:52px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.22));
+}
+.prog-pct{font-size:11px;font-weight:700;color:rgba(255,255,255,.3);text-align:right;margin-bottom:16px;}
+
+.phases-wrap{margin-top:4px;}
+.phases-labels{
+  display:flex;justify-content:space-between;
+  font-size:9px;font-weight:700;letter-spacing:.08em;
+  color:rgba(255,255,255,.22);text-transform:uppercase;margin-bottom:5px;
+}
+.phases{display:flex;gap:3px;}
+.phase{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.07);}
+.phase.reached{background:var(--green-lt);}
+.phase.active{background:var(--orange);}
+
+/* Metric strip */
+.metric-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:2px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r);overflow:hidden;
+  margin-bottom:28px;
+}
+.metric-cell{
+  background:rgba(255,255,255,.04);
+  padding:28px 20px;text-align:center;
+  transition:background var(--trans);
+}
+.metric-cell:hover{background:rgba(255,255,255,.09);}
+.metric-val{
+  font-size:clamp(22px,3vw,36px);font-weight:900;
+  color:#fff;letter-spacing:-.04em;line-height:1;margin-bottom:6px;
+  font-variant-numeric:tabular-nums;
+}
+.metric-val.orange{color:var(--orange);}
+.metric-val.green{color:var(--green-lt);}
+.metric-lbl{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.32);line-height:1.5;}
+
+/* Milestones */
+.milestones-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:2px;background:rgba(255,255,255,.06);
+  border-radius:var(--r);overflow:hidden;
+  margin-bottom:28px;
+}
+.ms-cell{
+  background:rgba(255,255,255,.04);
+  padding:26px 18px;text-align:center;
+  transition:background var(--trans);
+}
+.ms-cell:hover{background:rgba(255,255,255,.09);}
+.ms-cell.done{background:rgba(22,163,74,.1);}
+.ms-cell.active{background:rgba(255,117,31,.07);outline:1px solid rgba(255,117,31,.18);}
+.ms-icon{font-size:18px;margin-bottom:8px;}
+.ms-val{font-size:17px;font-weight:900;color:#fff;letter-spacing:-.02em;line-height:1;margin-bottom:4px;}
+.ms-val.done{color:var(--green-lt);}
+.ms-val.active{color:var(--orange);}
+.ms-desc{font-size:11px;color:rgba(255,255,255,.38);line-height:1.5;margin-bottom:8px;}
+.ms-badge{
+  display:inline-block;font-size:9px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 9px;border-radius:100px;
+}
+.ms-badge.done{background:rgba(22,163,74,.2);color:var(--green-lt);}
+.ms-badge.active{background:rgba(255,117,31,.2);color:var(--orange-lt);}
+.ms-badge.pending{background:rgba(255,255,255,.06);color:rgba(255,255,255,.28);}
+
+/* Brand breakdown row */
+.breakdown-wrap{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r);overflow:hidden;
+}
+.breakdown-header{
+  padding:16px 24px;border-bottom:1px solid rgba(255,255,255,.06);
+  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.32);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.breakdown-row{
+  display:flex;align-items:center;gap:16px;
+  padding:13px 24px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  transition:background var(--trans);
+}
+.breakdown-row:last-child{border-bottom:none;}
+.breakdown-row:hover{background:rgba(255,255,255,.04);}
+.br-icon{font-size:16px;width:24px;text-align:center;flex-shrink:0;}
+.br-name{flex:1;font-size:12px;font-weight:700;color:#fff;letter-spacing:-.01em;}
+.br-bar-bg{width:120px;height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;flex-shrink:0;}
+.br-bar-fill{height:100%;border-radius:2px;background:var(--orange);transition:width .9s cubic-bezier(.4,0,.2,1);}
+.br-pct{font-size:11px;font-weight:700;color:rgba(255,255,255,.35);width:44px;text-align:right;flex-shrink:0;}
+
+/* ════════════════════════════
+   BRANDS SECTION
+════════════════════════════ */
+.brands-section{padding:96px 0;}
+
+/* Flagship */
+.brand-flagship{
+  background:linear-gradient(135deg,var(--navy-deep),var(--navy));
+  border-radius:var(--r);overflow:hidden;
+  display:grid;grid-template-columns:1fr 1fr;
+  margin-bottom:3px;
+  box-shadow:var(--sh-md);
+}
+.flag-left{padding:56px;border-right:1px solid rgba(255,255,255,.07);}
+.flag-right{padding:56px;display:flex;flex-direction:column;justify-content:center;gap:24px;}
+
+.brand-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,117,31,.14);border:1px solid rgba(255,117,31,.28);
+  color:var(--orange-lt);font-size:10px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 12px;border-radius:100px;margin-bottom:18px;
+}
+
+/* Logo placeholder */
+.logo-placeholder{
+  width:52px;height:52px;border-radius:10px;
+  background:rgba(255,255,255,.07);
+  border:1px dashed rgba(255,255,255,.18);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(255,255,255,.25);
+  margin-bottom:18px;text-align:center;line-height:1.3;
+  flex-shrink:0;
+}
+.logo-placeholder.lg{width:64px;height:64px;font-size:10px;}
+
+.flag-name{
+  font-size:clamp(24px,4vw,40px);font-weight:900;
+  color:#fff;letter-spacing:-.03em;line-height:1;margin-bottom:8px;
+}
+.flag-area{
+  font-size:10px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--orange);margin-bottom:14px;
+}
+.flag-desc{font-size:14px;color:rgba(255,255,255,.58);line-height:1.75;}
+
+.flag-stat{display:flex;flex-direction:column;gap:4px;}
+.fstat-lbl{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.28);}
+.fstat-val{font-size:14px;font-weight:700;color:#fff;}
+.fstat-val span{color:var(--orange);}
+
+/* Sub brand grid */
+.brand-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:var(--g200);
+  border-radius:var(--r);overflow:hidden;
+}
+.brand-card{
+  background:var(--white);padding:32px 28px;
+  position:relative;overflow:hidden;
+  transition:background var(--trans),transform var(--trans),box-shadow var(--trans);
+}
+.brand-card:hover{background:var(--off);transform:translateY(-2px);box-shadow:var(--sh-md);z-index:1;}
+.brand-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--baccent,var(--orange));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .38s cubic-bezier(.4,0,.2,1);
+}
+.brand-card:hover::after{transform:scaleX(1);}
+
+.bc-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.bc-logo-placeholder{
+  width:38px;height:38px;border-radius:8px;
+  background:var(--g100);border:1px dashed var(--g200);
+  display:flex;align-items:center;justify-content:center;
+  font-size:8px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--g400);
+  flex-shrink:0;text-align:center;line-height:1.3;
+}
+.bc-header-right{}
+.bc-num{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--g400);margin-bottom:2px;}
+.bc-name{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.02em;line-height:1.2;}
+.bc-area{
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--baccent,var(--orange));margin-bottom:12px;
+}
+.bc-desc{font-size:12px;color:var(--g600);line-height:1.65;margin-bottom:14px;}
+.bc-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:12px;border-top:1px solid var(--g100);
+}
+.bc-handle{
+  font-size:11px;font-weight:700;color:var(--baccent,var(--orange));
+  text-decoration:none;letter-spacing:.03em;
+  transition:opacity var(--trans);
+}
+.bc-handle:hover{opacity:.7;}
+.bc-networks{display:flex;gap:6px;}
+.bc-net{
+  font-size:9px;font-weight:700;letter-spacing:.06em;
+  background:var(--g100);color:var(--g600);
+  padding:3px 8px;border-radius:100px;
+}
+
+/* Earnstor full-width */
+.brand-card.earnstor{
+  grid-column:1/-1;
+  display:grid;grid-template-columns:1fr auto;
+  gap:32px;align-items:center;
+}
+.earnstor-markets{
+  display:flex;gap:8px;flex-wrap:wrap;
+}
+.earnstor-flag{
+  font-size:22px;
+  width:44px;height:44px;
+  background:rgba(29,78,216,.07);
+  border:1px solid rgba(29,78,216,.15);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ════════════════════════════
+   LOG / DIARY
+════════════════════════════ */
+.log-section{padding:96px 0;}
+.log-layout{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px;}
+
+.log-feed{
+  background:var(--white);border-radius:var(--r);
+  border:1px solid var(--g200);overflow:hidden;
+  box-shadow:var(--sh);
+  display:flex;flex-direction:column;
+}
+.log-feed-header{
+  padding:22px 28px;border-bottom:1px solid var(--g200);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.log-feed-title{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.02em;}
+.log-badge{
+  font-size:11px;font-weight:700;color:var(--g400);
+  background:var(--g100);padding:4px 12px;border-radius:100px;
+}
+.log-entries{flex:1;overflow-y:auto;max-height:440px;}
+.log-entry{
+  padding:20px 28px;border-bottom:1px solid var(--g100);
+  animation:fadeIn .35s ease;
+}
+.log-entry:last-child{border-bottom:none;}
+.log-entry-date{
+  font-size:10px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--orange);margin-bottom:6px;
+}
+.log-entry-text{font-size:13px;color:var(--text);line-height:1.65;font-weight:500;}
+.log-entry-snap{
+  font-size:11px;color:var(--g400);margin-top:6px;
+  display:flex;align-items:center;gap:5px;font-weight:600;
+}
+.log-empty{
+  padding:56px 28px;text-align:center;color:var(--g400);
+}
+.log-empty-icon{font-size:32px;display:block;margin-bottom:12px;opacity:.5;}
+.log-empty-text{font-size:13px;font-weight:500;}
+
+/* About card */
+.about-card{
+  background:var(--navy);border-radius:var(--r);
+  padding:44px;color:#fff;
+  box-shadow:var(--sh-md);
+  display:flex;flex-direction:column;gap:24px;
+}
+.about-title{font-size:20px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2;}
+.about-title span{color:var(--orange);}
+.about-quote{
+  font-family:'Crimson Pro',Georgia,serif;
+  font-size:19px;font-style:italic;
+  color:rgba(255,255,255,.72);
+  line-height:1.8;
+  border-left:3px solid var(--orange);
+  padding-left:20px;
+}
+.about-quote strong{
+  font-style:normal;font-weight:600;
+  color:var(--orange-lt);
+  font-family:'Montserrat',sans-serif;font-size:14px;
+}
+.about-divider{height:1px;background:rgba(255,255,255,.08);}
+.about-meta{display:flex;flex-direction:column;gap:4px;}
+.about-meta-lbl{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.28);}
+.about-meta-val{font-size:16px;font-weight:800;color:#fff;}
+.about-meta-val span{color:var(--orange);}
+
+/* ════════════════════════════
+   VISION BANNER
+════════════════════════════ */
+.vision-banner{
+  background:linear-gradient(135deg,var(--navy-deep),var(--navy-mid));
+  padding:96px 48px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.vision-banner::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 65% 75% at 50% 50%,rgba(255,117,31,.09) 0%,transparent 65%);
+}
+.vision-banner::after{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+.vision-inner{position:relative;z-index:1;}
+.vision-stmt{
+  font-size:clamp(22px,3.8vw,40px);font-weight:800;
+  color:#fff;letter-spacing:-.03em;line-height:1.35;
+  max-width:840px;margin:0 auto 40px;
+}
+.vision-stmt em{font-style:normal;color:var(--orange);}
+
+/* ════════════════════════════
+   FOOTER
+════════════════════════════ */
+footer{
+  background:var(--navy-deep);
+  padding:56px 48px 40px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.footer-logo{font-size:18px;font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:6px;}
+.footer-logo span{color:var(--orange);}
+.footer-tagline{font-size:12px;color:rgba(255,255,255,.22);letter-spacing:.08em;text-transform:uppercase;margin-bottom:32px;}
+.footer-handles{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:28px;
+}
+.fhandle{
+  font-size:10px;font-weight:700;color:rgba(255,255,255,.22);
+  border:1px solid rgba(255,255,255,.07);
+  padding:5px 13px;border-radius:100px;
+  text-decoration:none;letter-spacing:.05em;
+  transition:color var(--trans),border-color var(--trans);
+}
+.fhandle:hover{color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2);}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.14);}
+
+/* ── PHASE TABS ── */
+.phase-tab{
+  background:transparent;border:none;
+  color:rgba(255,255,255,.45);
+  font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;
+  padding:9px 20px;border-radius:7px;cursor:pointer;
+  letter-spacing:.03em;transition:all .2s;white-space:nowrap;
+}
+.phase-tab:hover{color:rgba(255,255,255,.8);}
+.phase-tab.active{background:var(--orange);color:#fff;box-shadow:0 4px 14px rgba(255,117,31,.35);}
+
+/* ── PHASE BANNER ── */
+.phase-banner{
+  border-radius:var(--r);padding:20px 28px;
+  margin-bottom:24px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;
+  border:1px solid rgba(255,255,255,.08);
+}
+.pb-left{}
+.pb-phase{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.pb-title{font-size:18px;font-weight:900;color:#fff;letter-spacing:-.02em;}
+.pb-title span{color:var(--orange);}
+.pb-narrative{font-size:13px;color:rgba(255,255,255,.55);margin-top:4px;}
+.pb-goals{display:flex;gap:20px;flex-wrap:wrap;}
+.pb-goal{text-align:center;}
+.pb-goal-val{font-size:20px;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;}
+.pb-goal-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:3px;}
+
+/* ════════════════════════════
+   KEYFRAMES
+════════════════════════════ */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(22px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(6px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes pulse-dot{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:.45;transform:scale(.8);}
+}
+
+/* ════════════════════════════
+   RESPONSIVE
+════════════════════════════ */
+@media(max-width:960px){
+  nav{padding:0 24px;}.nav-links{display:none;}
+  .hero{padding:100px 24px 72px;}.hero-inner{grid-template-columns:1fr;gap:48px;}
+  .container{padding:0 24px;}
+  .metric-strip{grid-template-columns:repeat(3,1fr);}
+  .milestones-grid{grid-template-columns:repeat(2,1fr);}
+  .brand-flagship{grid-template-columns:1fr;}
+  .flag-left{border-right:none;border-bottom:1px solid rgba(255,255,255,.07);padding:40px 28px;}
+  .flag-right{padding:28px;gap:18px;}
+  .brand-grid{grid-template-columns:1fr 1fr;}
+  .brand-card.earnstor{grid-template-columns:1fr;}
+  .log-layout{grid-template-columns:1fr;}
+  .section{padding:64px 0;}
+  .section-dark{padding:64px 0;}
+  .brands-section{padding:64px 0;}
+  .log-section{padding:64px 0;}
+  .vision-banner{padding:64px 24px;}
+}
+@media(max-width:600px){
+  .metric-strip{grid-template-columns:repeat(2,1fr);}
+  .milestones-grid{grid-template-columns:1fr 1fr;}
+  .brand-grid{grid-template-columns:1fr;}
+  .hero-ctas{flex-direction:column;}
+  .hero-stat-grid{grid-template-columns:1fr 1fr;}
+  .progress-card{padding:28px;}
+  .br-bar-bg{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav id="main-nav">
+  <a href="#inicio" class="nav-logo"><div class="nav-dot"></div>Grupo <span>Aprendesor</span></a>
+  <ul class="nav-links">
+    <li><a href="#tracker">Tracker</a></li>
+    <li><a href="#fases">Las 3 Fases</a></li>
+    <li><a href="#marcas">Marcas</a></li>
+    <li><a href="#diario">Diario</a></li>
+    <li><a href="#vision">Visión</a></li>
+  </ul>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero" id="inicio">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-line"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Tracker de crecimiento · Actualizado semanalmente · 2026</div>
+      <h1 class="hero-h1">El camino de<br><em>Grupo Aprendesor</em><br>hacia 100B.</h1>
+      <p class="hero-sub">3 fases. 10 marcas. Un holding construido en público y medido en tiempo real. Cada view, cada seguidor y cada dólar — documentado aquí semana a semana.</p>
+      <div class="hero-ctas">
+        <a href="#tracker" class="btn-primary">Ver el progreso →</a>
+        <a href="#marcas" class="btn-outline">Las 10 marcas</a>
+      </div>
+    </div>
+    <div class="hero-stat-grid">
+      <div class="hstat">
+        <div class="hstat-num" id="h-views">0</div>
+        <div class="hstat-lbl">Views totales del ecosistema</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num" id="h-followers">0</div>
+        <div class="hstat-lbl">Seguidores en todas las marcas</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num" id="h-videos">0</div>
+        <div class="hstat-lbl">Videos publicados</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num" id="h-days">0</div>
+        <div class="hstat-lbl">Días activo el proyecto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TRACKER ══════ -->
+<section class="section-dark section" id="tracker">
+  <div class="container" style="position:relative;z-index:1;">
+
+    <div class="reveal">
+      <div class="sec-label light">El progreso en tiempo real</div>
+      <h2 class="sec-title light" style="margin-bottom:8px;">3 fases. <em>100 billones</em> de personas.</h2>
+      <p class="sec-body light" style="margin-bottom:48px;">Actualizado semanalmente. Cada view, cada seguidor, cada dólar — documentado aquí.</p>
+    </div>
+
+    <!-- Phase selector tabs -->
+    <div class="reveal reveal-delay-1" style="margin-bottom:24px;">
+      <div style="display:flex;gap:3px;background:rgba(255,255,255,.05);border-radius:10px;padding:4px;width:fit-content;">
+        <button class="phase-tab active" onclick="setPhase(0)" id="tab-0">🌱 La Semilla · 2027</button>
+        <button class="phase-tab" onclick="setPhase(1)" id="tab-1">🌳 El Árbol · 2030</button>
+        <button class="phase-tab" onclick="setPhase(2)" id="tab-2">🍎 El Fruto · 2035</button>
+      </div>
+    </div>
+
+    <!-- Phase info banner -->
+    <div class="phase-banner reveal reveal-delay-1" id="phase-banner"></div>
+
+    <!-- Views progress -->
+    <div class="progress-card reveal reveal-delay-1">
+      <div class="prog-top">
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:10px;">VIEWS TOTALES DEL ECOSISTEMA</div>
+          <div class="prog-current" id="prog-num">0 <span>views</span></div>
+        </div>
+        <div class="prog-target-block">
+          <div class="prog-target-lbl">Meta de views</div>
+          <div class="prog-target" id="prog-target-views">1B</div>
+        </div>
+      </div>
+      <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-bar" style="width:.02%"></div></div>
+      <div class="prog-pct" id="prog-pct">0.0000% completado</div>
+      <div class="phases-wrap">
+        <div class="phases-labels" id="phases-labels"></div>
+        <div class="phases" id="phases"></div>
+      </div>
+    </div>
+
+    <!-- Followers progress -->
+    <div class="progress-card reveal reveal-delay-2" style="margin-top:16px;">
+      <div class="prog-top">
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:10px;">SEGUIDORES TOTALES DEL ECOSISTEMA</div>
+          <div class="prog-current" id="prog-followers-num">0 <span>seguidores</span></div>
+        </div>
+        <div class="prog-target-block">
+          <div class="prog-target-lbl">Meta de seguidores</div>
+          <div class="prog-target" id="prog-target-followers">5M</div>
+        </div>
+      </div>
+      <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-bar-followers" style="width:.02%;background:linear-gradient(90deg,#065f46,#22c55e);"></div></div>
+      <div class="prog-pct" id="prog-pct-followers">0.0000% completado</div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="metric-strip reveal reveal-delay-2" id="metric-strip">
+      <div class="metric-cell"><div class="metric-val orange" id="m-views">0</div><div class="metric-lbl">Views totales</div></div>
+      <div class="metric-cell"><div class="metric-val green"  id="m-followers">0</div><div class="metric-lbl">Seguidores</div></div>
+      <div class="metric-cell"><div class="metric-val"        id="m-videos">0</div><div class="metric-lbl">Videos publicados</div></div>
+      <div class="metric-cell"><div class="metric-val"        id="m-remaining">—</div><div class="metric-lbl" id="m-remaining-lbl">Faltan para fase 1</div></div>
+    </div>
+
+    <!-- Milestones -->
+    <div class="reveal reveal-delay-2">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:14px;">HITOS DE VIEWS · FASE ACTUAL</div>
+      <div class="milestones-grid" id="milestones-grid"></div>
+    </div>
+
+    <!-- Brand breakdown -->
+    <div class="reveal reveal-delay-3" style="margin-top:28px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:14px;">ESTADÍSTICAS POR MARCA</div>
+      <div class="breakdown-wrap">
+        <div class="breakdown-header">
+          <span>Estadísticas del ecosistema</span>
+          <span id="breakdown-total">Total: 0 views · 0 seguidores</span>
+        </div>
+        <div id="brand-breakdown"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════ LAS 3 FASES ══════ -->
+<section class="section" id="fases" style="background:var(--white);">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:48px;">
+      <div class="sec-label">La hoja de ruta</div>
+      <h2 class="sec-title">Las <em>3 fases</em> hacia 100B</h2>
+      <p class="sec-body">Cada fase tiene sus propias metas de views y seguidores. No avanzamos a la siguiente hasta completar la actual.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--g200);border-radius:var(--r);overflow:hidden;" class="reveal reveal-delay-1">
+
+      <div style="background:var(--white);padding:40px 32px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--orange);"></div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;">Fase 1 · Activa · Hasta 2027</div>
+        <div style="font-size:22px;font-weight:900;color:var(--text);letter-spacing:-.03em;margin-bottom:14px;">🌱 La Semilla</div>
+        <div style="font-size:32px;font-weight:900;color:var(--text);letter-spacing:-.04em;line-height:1;margin-bottom:4px;">1B <span style="font-size:16px;color:var(--g400);">views</span></div>
+        <div style="font-size:16px;font-weight:700;color:var(--green);letter-spacing:-.02em;margin-bottom:14px;">5M seguidores</div>
+        <p style="font-size:12px;color:var(--g600);line-height:1.65;margin-bottom:20px;">Toda gran historia empieza con una semilla. Las 10 marcas arrancan y alcanzan el primer billón de views combinados.</p>
+        <div style="background:var(--g100);border-radius:100px;height:6px;overflow:hidden;">
+          <div style="height:100%;width:6.95%;background:var(--orange);border-radius:100px;"></div>
+        </div>
+        <div style="font-size:10px;font-weight:700;color:var(--orange);margin-top:6px;">6.95% completado · 69.5M / 1B views</div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--g100);">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g400);margin-bottom:6px;">Seguidores · 325K / 5M</div>
+          <div style="background:var(--g100);border-radius:100px;height:5px;overflow:hidden;">
+            <div style="height:100%;width:6.5%;background:var(--green);border-radius:100px;"></div>
+          </div>
+          <div style="font-size:10px;font-weight:700;color:var(--green);margin-top:4px;">6.5% completado</div>
+        </div>
+      </div>
+
+      <div style="background:var(--off);padding:40px 32px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:#1d4ed8;opacity:.3;"></div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#1d4ed8;margin-bottom:6px;opacity:.6;">Fase 2 · Pendiente · Hasta 2030</div>
+        <div style="font-size:22px;font-weight:900;color:var(--text);letter-spacing:-.03em;margin-bottom:14px;opacity:.5;">🌳 El Árbol</div>
+        <div style="font-size:32px;font-weight:900;color:var(--text);letter-spacing:-.04em;line-height:1;margin-bottom:4px;opacity:.5;">10B <span style="font-size:16px;color:var(--g400);">views</span></div>
+        <div style="font-size:16px;font-weight:700;color:var(--green);letter-spacing:-.02em;margin-bottom:14px;opacity:.5;">50M seguidores</div>
+        <p style="font-size:12px;color:var(--g600);line-height:1.65;margin-bottom:20px;">La semilla crece y echa raíces profundas. Grupo Aprendesor domina el mercado hispano y consolida sus activos reales.</p>
+        <div style="background:var(--g200);border-radius:100px;height:6px;"></div>
+        <div style="font-size:10px;font-weight:700;color:var(--g400);margin-top:6px;">Inicia al completar La Semilla</div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--g200);opacity:.5;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g400);margin-bottom:6px;">Meta seguidores · 50M</div>
+          <div style="background:var(--g200);border-radius:100px;height:5px;"></div>
+          <div style="font-size:10px;font-weight:700;color:var(--g400);margin-top:4px;">Pendiente</div>
+        </div>
+      </div>
+
+      <div style="background:var(--off);padding:40px 32px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--green);opacity:.3;"></div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:6px;opacity:.6;">Fase 3 · Pendiente · Hasta 2035</div>
+        <div style="font-size:22px;font-weight:900;color:var(--text);letter-spacing:-.03em;margin-bottom:14px;opacity:.5;">🍎 El Fruto</div>
+        <div style="font-size:32px;font-weight:900;color:var(--text);letter-spacing:-.04em;line-height:1;margin-bottom:4px;opacity:.5;">100B <span style="font-size:16px;color:var(--g400);">views</span></div>
+        <div style="font-size:16px;font-weight:700;color:var(--green);letter-spacing:-.02em;margin-bottom:14px;opacity:.5;">500M seguidores</div>
+        <p style="font-size:12px;color:var(--g600);line-height:1.65;margin-bottom:20px;">El árbol da su fruto. Grupo Aprendesor supera a todos los medios latinos y se convierte en el mayor holding de contenido del mundo hispano.</p>
+        <div style="background:var(--g200);border-radius:100px;height:6px;"></div>
+        <div style="font-size:10px;font-weight:700;color:var(--g400);margin-top:6px;">Inicia al completar El Árbol</div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--g200);opacity:.5;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g400);margin-bottom:6px;">Meta seguidores · 500M</div>
+          <div style="background:var(--g200);border-radius:100px;height:5px;"></div>
+          <div style="font-size:10px;font-weight:700;color:var(--g400);margin-top:4px;">Pendiente</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ MARCAS ══════ -->
+<section class="brands-section section-alt" id="marcas">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:48px;">
+      <div class="sec-label">El ecosistema</div>
+      <h2 class="sec-title">Las <em>10 marcas</em> del holding</h2>
+      <p class="sec-body">Cada marca domina su propio nicho — todas conectadas por el mismo ADN: fe, disciplina y conocimiento accionable para el joven latino.</p>
+    </div>
+
+    <!-- Flagship -->
+    <div class="brand-flagship reveal">
+      <div class="flag-left">
+        <div class="brand-eyebrow">⚔️ &nbsp;01 · Flagship del holding</div>
+        <div style="font-size:48px;margin-bottom:18px;">⚔️</div>
+        <div class="flag-name">APRENDESOR</div>
+        <div class="flag-area">Desarrollo Personal · Masculinidad · Fe · Latino</div>
+        <p class="flag-desc">Canal flagship del holding con 69.5M de views. Desarrollo personal, disciplina cristiana y propósito masculino para jóvenes latinos de 18–25 años. El motor de adquisición que alimenta a todas las marcas del ecosistema.</p>
+      </div>
+      <div class="flag-right">
+        <div class="flag-stat"><div class="fstat-lbl">Handle oficial</div><div class="fstat-val"><span>@Aprendesor</span></div></div>
+        <div class="flag-stat"><div class="fstat-lbl">Plataformas</div><div class="fstat-val">TikTok · YouTube · Instagram · X · Facebook · Discord</div></div>
+        <div class="flag-stat"><div class="fstat-lbl">Público objetivo</div><div class="fstat-val">Hombres latinos <span>18–25</span></div></div>
+        <div class="flag-stat"><div class="fstat-lbl">Views actuales</div><div class="fstat-val"><span>69.5M</span> views · 325K seguidores</div></div>
+        <div class="flag-stat"><div class="fstat-lbl">Rol en el holding</div><div class="fstat-val"><span>Acquisition Engine</span> · Flagship</div></div>
+      </div>
+    </div>
+
+    <!-- Sub-brands grid -->
+    <div class="brand-grid reveal reveal-delay-1" style="margin-top:3px;">
+
+      <!-- Earnstor full-width -->
+      <div class="brand-card" style="--baccent:#1d4ed8;grid-column:1/-1;">
+          <div class="bc-header">
+            <div class="bc-icon-box" style="background:#1d4ed8;width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🌎</div>
+            <div class="bc-header-right">
+              <div class="bc-num">02</div>
+              <div class="bc-name">Earnstor</div>
+            </div>
+          </div>
+          <div class="bc-area">English Market · Wealth · Discipline · Masculinity</div>
+          <p class="bc-desc">Aprendesor's entry into the English-speaking world. Same DNA — faith, discipline, masculine purpose and financial freedom — for young men across the US, UK, Canada and Australia. The bridge that takes Grupo Aprendesor global.</p>
+          <div class="bc-footer">
+            <a href="#" class="bc-handle">@Earnstor</a>
+            <div class="bc-networks"><span class="bc-net">TikTok</span><span class="bc-net">YouTube</span><span class="bc-net">X</span><span class="bc-net">Instagram</span></div>
+          </div>
+
+      </div>
+
+      <div class="brand-card" style="--baccent:#16a34a;">
+        <div class="bc-header">
+          <div style="background:#16a34a;width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">💰</div>
+          <div class="bc-header-right"><div class="bc-num">03</div><div class="bc-name">SAL Finance</div></div>
+        </div>
+        <div class="bc-area">Finanzas · Inversión · Patrimonio</div>
+        <p class="bc-desc">Finanzas personales e inversión para el joven latino que quiere construir patrimonio real. Del primer dólar al primer activo tangible — sin jerga bancaria, sin excusas.</p>
+        <div class="bc-footer">
+          <a href="#" class="bc-handle" style="color:#16a34a;">@SAL</a>
+          <div class="bc-networks"><span class="bc-net">TikTok</span><span class="bc-net">YouTube</span><span class="bc-net">LinkedIn</span></div>
+        </div>
+      </div>
+
+      <div class="brand-card" style="--baccent:#92400e;">
+        <div class="bc-header">
+          <div style="background:#92400e;width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">📜</div>
+          <div class="bc-header-right"><div class="bc-num">04</div><div class="bc-name">El Archivo del Poder</div></div>
+        </div>
+        <div class="bc-area">Historia · Geopolítica · Poder</div>
+        <p class="bc-desc">Los eventos, figuras y decisiones que moldearon el mundo. Historia contada como lo que es: un manual de poder para quien quiere entender cómo funciona todo realmente.</p>
+        <div class="bc-footer">
+          <a href="#" class="bc-handle" style="color:#92400e;">@Elarchivodelpoder</a>
+          <div class="bc-networks"><span class="bc-net">TikTok</span><span class="bc-net">YouTube</span><span class="bc-net">X</span></div>
+        </div>
+      </div>
+
+      <div class="brand-card" style="--baccent:#1d4ed8;">
+        <div class="bc-header">
+          <div style="background:#1d4ed8;width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🤖</div>
+          <div class="bc-header-right"><div class="bc-num">05</div><div class="bc-name">El Profesor IA</div></div>
+        </div>
+        <div class="bc-area">Inteligencia Artificial · Tecnología · Futuro</div>
+        <p class="bc-desc">IA y tecnología traducida al idioma del emprendedor latino. Herramientas, tendencias y aplicaciones prácticas para dominar la era digital antes que tu competencia.</p>
+        <div class="bc-footer">
+          <a href="#" class="bc-handle" style="color:#1d4ed8;">@ElProfesorIA</a>
+          <div class="bc-networks"><span class="bc-net">TikTok</span><span class="bc-net">YouTube</span><span class="bc-net">LinkedIn</span></div>
+        </div>
+      </div>
+
+      <div class="brand-card" style="--baccent:#dc2626;">
+        <div class="bc-header">
+          <div style="background:#dc2626;width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🎬</div>
+          <div class="bc-header-right"><div class="bc-num">06</div><div class="bc-name">El Diario del Creador</div></div>
+        </div>
+        <div class="bc-area">Contenido · Estrategia · Crecimiento</div>
+        <p class="bc-desc">El manual interno del creador digital. Estrategia de contenido, monetización, marca personal y los sistemas detrás de los canales que escalan a millones de personas.</p>
+        <div class="bc-footer">
+          <a href="#" class="bc-handle" style="color:#dc2626;">@Eldiariodelcreador</a>
+          <div class="bc-networks"><span class="bc-net">TikTok</span><span class="bc-net">YouTube</span><span class="bc-net">Instagram</span></div>
+        </div>
+      </div>
+
+      <div class="brand-card" style="--baccent:#7c3aed;">
+        <div class="bc-header">
+          <div style="background:#7c3aed;width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🏗️</div>
+          <div class="bc-header-right"><div class="bc-num">07</div><div class="bc-name">El Fundador</div></div>
+        </div>
+        <div class="bc-area">Emprendimiento · Negocios · Startups</div>
+        <p class="bc-desc">Para el latino que quiere construir algo propio. Negocios reales, modelos de ingreso probados y las verdades que los libros de negocios no se atreven a decir.</p>
+        <div class="bc-footer">
+          <a href="#" class="bc-handle" style="color:#7c3aed;">@Elfundador</a>
+          <div class="bc-networks"><span class="bc-net">TikTok</span><span class="bc-net">YouTube</span><span class="bc-net">LinkedIn</span></div>
+        </div>
+      </div>
+
+      <div class="brand-card" style="--baccent:#0891b2;">
+        <div class="bc-header">
+          <div style="background:#0891b2;width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">⚗️</div>
+          <div class="bc-header-right"><div class="bc-num">08</div><div class="bc-name">Filoduria</div></div>
+        </div>
+        <div class="bc-area">Filosofía · Estoicismo · Carácter</div>
+        <p class="bc-desc">Filosofía con dureza. Estoicismo, lógica, ética y los grandes pensadores destilados en ideas que forjan carácter masculino y una visión de vida que no se rompe.</p>
+        <div class="bc-footer">
+          <a href="#" class="bc-handle" style="color:#0891b2;">@Filoduria</a>
+          <div class="bc-networks"><span class="bc-net">TikTok</span><span class="bc-net">YouTube</span><span class="bc-net">X</span></div>
+        </div>
+      </div>
+
+      <div class="brand-card" style="--baccent:#d97706;">
+        <div class="bc-header">
+          <div style="background:#d97706;width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">✝️</div>
+          <div class="bc-header-right"><div class="bc-num">09</div><div class="bc-name">Siguiendo a Cristo</div></div>
+        </div>
+        <div class="bc-area">Fe Cristiana · Propósito · Identidad</div>
+        <p class="bc-desc">Fe sin filtros ni relativismo. Contenido cristiano para el hombre joven que busca anclar su identidad en algo más grande que él mismo. Sin tibieza, con convicción total.</p>
+        <div class="bc-footer">
+          <a href="#" class="bc-handle" style="color:#d97706;">@SiguiendoaCristo</a>
+          <div class="bc-networks"><span class="bc-net">TikTok</span><span class="bc-net">YouTube</span><span class="bc-net">WhatsApp</span></div>
+        </div>
+      </div>
+
+      <div class="brand-card" style="--baccent:#0f766e;">
+        <div class="bc-header">
+          <div style="background:#0f766e;width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🎥</div>
+          <div class="bc-header-right"><div class="bc-num">10</div><div class="bc-name">Juan Creates Wealth</div></div>
+        </div>
+        <div class="bc-area">Documental · Proceso · Transparencia</div>
+        <p class="bc-desc">La construcción de Grupo Aprendesor documentada en tiempo real. El camino, los errores, los hitos y las lecciones — sin editar la realidad, sin cortar las partes difíciles.</p>
+        <div class="bc-footer">
+          <a href="#" class="bc-handle" style="color:#0f766e;">@JuanCreatesWealth</a>
+          <div class="bc-networks"><span class="bc-net">TikTok</span><span class="bc-net">YouTube</span><span class="bc-net">Instagram</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ DIARIO ══════ -->
+<section class="log-section" id="diario">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">Diario del proyecto</div>
+      <h2 class="sec-title">Construido <em>en público.</em></h2>
+      <p class="sec-body">Cada hito, aprendizaje y actualización — documentado aquí. Sin filtros, sin editar la realidad.</p>
+    </div>
+    <div class="log-layout">
+      <div class="log-feed reveal reveal-delay-1">
+        <div class="log-feed-header">
+          <div class="log-feed-title">Actualizaciones del proyecto</div>
+          <div class="log-badge" id="log-badge">0 entradas</div>
+        </div>
+        <div class="log-entries" id="log-entries">
+          <div class="log-empty">
+            <span class="log-empty-icon">📋</span>
+            <span class="log-empty-text">Las actualizaciones del proyecto aparecerán aquí cada semana.</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-card reveal reveal-delay-2">
+        <div class="about-title">Por qué lo construimos <span>en público</span></div>
+        <blockquote class="about-quote">
+          No es una estrategia de marketing. Es una <strong>obligación moral</strong> — mostrarle a la audiencia que el camino es real, que los errores existen, y que la disciplina es la única variable que controlas.
+        </blockquote>
+        <blockquote class="about-quote">
+          Este tracker es la prueba de que <strong>Grupo Aprendesor no es un sueño.</strong> Es un proyecto con métricas, fechas y rendición de cuentas pública.
+        </blockquote>
+        <div class="about-divider"></div>
+        <div class="about-meta">
+          <div class="about-meta-lbl">Proyecto iniciado</div>
+          <div class="about-meta-val" id="project-start-display"><span>2025</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ VISION ══════ -->
+<section class="vision-banner" id="vision">
+  <div class="vision-inner">
+    <div class="sec-label light reveal" style="justify-content:center;margin-bottom:28px;">La visión · 2030</div>
+    <h2 class="vision-stmt reveal">
+      En 2030, cuando un joven latino busque dirección, dinero, fe o propósito —
+      <em>siempre va a encontrar una marca de Grupo Aprendesor.</em>
+    </h2>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;" class="reveal reveal-delay-1">
+      <a href="#tracker" class="btn-primary">Ver el progreso →</a>
+      <a href="#marcas" class="btn-outline">Las 10 marcas</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="footer-logo">Grupo <span>Aprendesor</span></div>
+  <div class="footer-tagline">Tracker público · 3 Fases · 100B views · 500M seguidores · 2026–2030</div>
+  <div class="footer-handles">
+    <a href="#" class="fhandle">@Aprendesor</a>
+    <a href="#" class="fhandle">@Earnstor</a>
+    <a href="#" class="fhandle">@SAL</a>
+    <a href="#" class="fhandle">@Elarchivodelpoder</a>
+    <a href="#" class="fhandle">@ElProfesorIA</a>
+    <a href="#" class="fhandle">@Eldiariodelcreador</a>
+    <a href="#" class="fhandle">@Elfundador</a>
+    <a href="#" class="fhandle">@Filoduria</a>
+    <a href="#" class="fhandle">@SiguiendoaCristo</a>
+    <a href="#" class="fhandle">@JuanCreatesWealth</a>
+  </div>
+  <div class="footer-copy">© 2026 Grupo Aprendesor · Tracker público · Actualizado semanalmente</div>
+</footer>
+
+<script>
+/* ════════════════════════════
+   CONFIG — edita aquí cada semana
+════════════════════════════ */
+const DATA = {
+  views:     69500000,
+  followers: 325000,
+  videos:    1789,
+  income:    25,
+  brandViews: {
+    aprendesor:  69500000,
+    earnstor:    0,
+    sal:         0,
+    archivo:     0,
+    profesor_ia: 0,
+    diario:      0,
+    fundador:    0,
+    filoduria:   0,
+    siguiendo:   0,
+    juan_creates:0,
+  },
+  brandFollowers: {
+    aprendesor:  325000,
+    earnstor:    0,
+    sal:         0,
+    archivo:     0,
+    profesor_ia: 0,
+    diario:      0,
+    fundador:    0,
+    filoduria:   0,
+    siguiendo:   0,
+    juan_creates:0,
+  },
+  log: [
+    { date: '18 de marzo de 2026', text: 'Primer registro oficial del proyecto. Aprendesor lleva 69.5M de views y 325K seguidores. Las 10 marcas del ecosistema están definidas. El camino hacia 1B empieza aquí.', views: 69500000 },
+    // Añade entradas aquí cada semana
+  ]
+};
+
+const START_DATE = new Date('2026-03-18');
+
+/* ════════════════════════════
+   PHASES CONFIG
+════════════════════════════ */
+const PHASES = [
+  {
+    num:       1,
+    name:      'La Semilla',
+    label:     'Fase 1',
+    horizon:   '2027',
+    viewsTarget:     1_000_000_000,
+    followersTarget: 5_000_000,
+    viewsLabel:      '1B views',
+    followersLabel:  '5M seguidores',
+    // Views progress bar: starts from 0 toward 1B
+    viewsStart:      0,
+    title:     'La Semilla',
+    narrative: 'Toda gran historia empieza con una semilla. Aprendesor y las 9 marcas alcanzan su primer billón de views combinados.',
+    color:     '#ff751f',
+    milestones:[
+      { label:'100M',  value:100_000_000,  desc:'Top of mind en el mercado hispano' },
+      { label:'250M',  value:250_000_000,  desc:'Una cuarta parte del camino' },
+      { label:'500M',  value:500_000_000,  desc:'Primera monetización seria' },
+      { label:'1B',    value:1_000_000_000,desc:'La Semilla completada ✓' },
+    ],
+    phaseDots:   [0, 100_000_000, 250_000_000, 500_000_000, 1_000_000_000],
+    phaseLabels: ['0', '100M', '250M', '500M', '1B'],
+  },
+  {
+    num:       2,
+    name:      'El Árbol',
+    label:     'Fase 2',
+    horizon:   '2030',
+    viewsTarget:     10_000_000_000,
+    followersTarget: 50_000_000,
+    viewsLabel:      '10B views',
+    followersLabel:  '50M seguidores',
+    // Views progress bar: starts from 1B (phase 1 end) toward 10B
+    viewsStart:      1_000_000_000,
+    title:     'El Árbol',
+    narrative: 'La semilla crece y echa raíces. Grupo Aprendesor se convierte en el mayor ecosistema de contenido en español.',
+    color:     '#1d4ed8',
+    milestones:[
+      { label:'2B',  value:2_000_000_000,  desc:'Impulso consolidado' },
+      { label:'4B',  value:4_000_000_000,  desc:'Crecimiento exponencial' },
+      { label:'7B',  value:7_000_000_000,  desc:'Liderazgo indiscutible' },
+      { label:'10B', value:10_000_000_000, desc:'El Árbol completado ✓' },
+    ],
+    phaseDots:   [1_000_000_000, 2_000_000_000, 4_000_000_000, 7_000_000_000, 10_000_000_000],
+    phaseLabels: ['1B', '2B', '4B', '7B', '10B'],
+  },
+  {
+    num:       3,
+    name:      'El Fruto',
+    label:     'Fase 3',
+    horizon:   '2035',
+    viewsTarget:     100_000_000_000,
+    followersTarget: 500_000_000,
+    viewsLabel:      '100B views',
+    followersLabel:  '500M seguidores',
+    // Views progress bar: starts from 10B (phase 2 end) toward 100B
+    viewsStart:      10_000_000_000,
+    title:     'El Fruto',
+    narrative: 'El árbol da su fruto. Grupo Aprendesor supera a todos los medios tradicionales latinos en alcance e impacto global.',
+    color:     '#16a34a',
+    milestones:[
+      { label:'20B',  value:20_000_000_000,  desc:'Expansión global activa' },
+      { label:'40B',  value:40_000_000_000,  desc:'Holding de activos reales' },
+      { label:'70B',  value:70_000_000_000,  desc:'Legado generacional' },
+      { label:'100B', value:100_000_000_000, desc:'El Fruto completado ✓' },
+    ],
+    phaseDots:   [10_000_000_000, 20_000_000_000, 40_000_000_000, 70_000_000_000, 100_000_000_000],
+    phaseLabels: ['10B', '20B', '40B', '70B', '100B'],
+  },
+];
+
+let currentPhase = 0; // index 0,1,2
+
+function setPhase(idx){
+  currentPhase = idx;
+  document.querySelectorAll('.phase-tab').forEach((t,i)=>{
+    t.classList.toggle('active', i===idx);
+  });
+  renderTracker();
+}
+
+/* ════════════════════════════
+   BRANDS METADATA
+════════════════════════════ */
+const BRANDS = [
+  { name:'Aprendesor',            icon:'⚔️', key:'aprendesor' },
+  { name:'Earnstor',              icon:'🌎', key:'earnstor' },
+  { name:'SAL Finance',           icon:'💰', key:'sal' },
+  { name:'El Archivo del Poder',  icon:'📜', key:'archivo' },
+  { name:'El Profesor IA',        icon:'🤖', key:'profesor_ia' },
+  { name:'El Diario del Creador', icon:'🎬', key:'diario' },
+  { name:'El Fundador',           icon:'🏗️', key:'fundador' },
+  { name:'Filoduria',             icon:'⚗️', key:'filoduria' },
+  { name:'Siguiendo a Cristo',    icon:'✝️', key:'siguiendo' },
+  { name:'Juan Creates Wealth',   icon:'🎥', key:'juan_creates' },
+];
+
+/* ════════════════════════════
+   FORMAT HELPERS
+════════════════════════════ */
+function fmt(n){
+  n=Number(n)||0;
+  if(n>=1e12) return (n/1e12).toFixed(1).replace(/\.0$/,'')+'T';
+  if(n>=1e9)  return (n/1e9).toFixed(2).replace(/\.?0+$/,'')+'B';
+  if(n>=1e6)  return (n/1e6).toFixed(2).replace(/\.?0+$/,'')+'M';
+  if(n>=1e3)  return (n/1e3).toFixed(1).replace(/\.?0+$/,'')+'K';
+  return n.toLocaleString('es');
+}
+function fmtFull(n){ return Number(n).toLocaleString('es'); }
+function daysSince(d){ return Math.floor((Date.now()-d)/(864e5)); }
+
+/* ════════════════════════════
+   COUNTER ANIMATION
+════════════════════════════ */
+function animateCounter(el, target, duration, formatter){
+  if(!el) return;
+  const start   = Date.now();
+  const easeOut = t => 1 - Math.pow(1-t, 3);
+  function tick(){
+    const p = Math.min((Date.now()-start)/duration, 1);
+    el.innerHTML = formatter(Math.round(target * easeOut(p)));
+    if(p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ════════════════════════════
+   RENDER TRACKER
+════════════════════════════ */
+function renderTracker(){
+  const ph = PHASES[currentPhase];
+
+  // ── Phase banner ──
+  const banner = document.getElementById('phase-banner');
+  banner.style.background = `linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.03))`;
+  banner.style.borderColor = `rgba(255,255,255,.1)`;
+  banner.innerHTML = `
+    <div class="pb-left">
+      <div class="pb-phase">${ph.label} de 3</div>
+      <div class="pb-title"><span>${ph.name}</span> — ${ph.viewsLabel} · ${ph.followersLabel}</div>
+      <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.35);margin-top:2px;">Horizonte: ${ph.horizon}</div>
+      <div class="pb-narrative">${ph.narrative}</div>
+    </div>
+    <div class="pb-goals">
+      <div class="pb-goal">
+        <div class="pb-goal-val" style="color:${ph.color};">${ph.viewsLabel}</div>
+        <div class="pb-goal-lbl">Meta views</div>
+      </div>
+      <div class="pb-goal">
+        <div class="pb-goal-val" style="color:#22c55e;">${ph.followersLabel}</div>
+        <div class="pb-goal-lbl">Meta seguidores</div>
+      </div>
+      <div class="pb-goal">
+        <div class="pb-goal-val" style="color:rgba(255,255,255,.5);">${ph.horizon}</div>
+        <div class="pb-goal-lbl">Horizonte</div>
+      </div>
+    </div>
+  `;
+
+  // ── Views progress bar ──
+  // Progress within this phase only (not from 0)
+  const phaseViewsRange = ph.viewsTarget - ph.viewsStart;
+  const phaseViewsProgress = Math.max(DATA.views - ph.viewsStart, 0);
+  const viewsPct = Math.min((phaseViewsProgress / phaseViewsRange) * 100, 100);
+  setTimeout(()=>{ document.getElementById('prog-bar').style.width = Math.max(viewsPct,.02)+'%'; }, 200);
+  document.getElementById('prog-num').innerHTML = `${fmtFull(DATA.views)} <span>views</span>`;
+  document.getElementById('prog-target-views').textContent = ph.viewsLabel;
+  document.getElementById('prog-pct').textContent =
+    viewsPct < .0001 ? '0.0000% completado' : viewsPct.toFixed(4) + '% completado';
+
+  // Phase dots for views
+  const labelsEl = document.getElementById('phases-labels');
+  const dotsEl   = document.getElementById('phases');
+  labelsEl.innerHTML = ph.phaseLabels.map(l=>`<span>${l}</span>`).join('');
+  dotsEl.innerHTML   = '';
+  ph.phaseDots.slice(1).forEach((v,i)=>{
+    const prev = ph.phaseDots[i];
+    const seg  = document.createElement('div');
+    seg.className = 'phase' + (DATA.views>=v?' reached':DATA.views>prev?' active':'');
+    dotsEl.appendChild(seg);
+  });
+
+  // ── Followers progress bar ──
+  const folPct = Math.min((DATA.followers / ph.followersTarget) * 100, 100);
+  setTimeout(()=>{ document.getElementById('prog-bar-followers').style.width = Math.max(folPct,.02)+'%'; }, 300);
+  document.getElementById('prog-followers-num').innerHTML = `${fmtFull(DATA.followers)} <span>seguidores</span>`;
+  document.getElementById('prog-target-followers').textContent = ph.followersLabel;
+  document.getElementById('prog-pct-followers').textContent =
+    folPct < .0001 ? '0.0000% completado' : folPct.toFixed(4) + '% completado';
+
+  // ── Remaining metric ──
+  document.getElementById('m-remaining').textContent = fmt(Math.max(ph.viewsTarget - DATA.views, 0));
+  document.getElementById('m-remaining-lbl').textContent = `Faltan para ${ph.label.toLowerCase()}`;
+
+  // ── Milestones ──
+  const mg = document.getElementById('milestones-grid');
+  mg.innerHTML = '';
+  ph.milestones.forEach((m,i)=>{
+    const reached  = DATA.views >= m.value;
+    const isActive = !reached && (i===0 || DATA.views >= ph.milestones[i-1].value);
+    const st       = reached?'done':isActive?'active':'pending';
+    const pctM     = Math.min((DATA.views/m.value)*100,100);
+    const div      = document.createElement('div');
+    div.className  = `ms-cell ${st}`;
+    div.innerHTML  = `
+      <div class="ms-icon">${reached?'✅':isActive?'⚡':'🔒'}</div>
+      <div class="ms-val ${st}">${m.label}</div>
+      <div class="ms-desc">${m.desc}</div>
+      <span class="ms-badge ${st}">${reached?'✓ Alcanzado':isActive?pctM.toFixed(1)+'%':'Pendiente'}</span>
+    `;
+    mg.appendChild(div);
+  });
+
+  // ── Brand breakdown ──
+  const bb = document.getElementById('brand-breakdown');
+  bb.innerHTML = '';
+  const totalV = DATA.views || 1;
+  document.getElementById('breakdown-total').textContent = `Total: ${fmt(DATA.views)} views`;
+  const totalF = DATA.followers || 1;
+  document.getElementById('breakdown-total').textContent =
+    `Total: ${fmt(DATA.views)} views · ${fmt(DATA.followers)} seguidores`;
+  BRANDS.forEach(b=>{
+    const v  = DATA.brandViews[b.key]||0;
+    const f  = (DATA.brandFollowers||{})[b.key]||0;
+    const pv = Math.min((v/totalV)*100,100);
+    const pf = Math.min((f/totalF)*100,100);
+    const row = document.createElement('div');
+    row.className = 'breakdown-row';
+    row.style.cssText = 'flex-wrap:wrap;row-gap:10px;padding:16px 24px;';
+    row.innerHTML = `
+      <span class="br-icon">${b.icon}</span>
+      <span class="br-name" style="min-width:140px;">${b.name}</span>
+      <div style="flex:1;min-width:180px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+          <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);width:20px;">👁</span>
+          <div class="br-bar-bg" style="flex:1;"><div class="br-bar-fill" style="width:${pv}%;background:var(--orange);"></div></div>
+          <span class="br-pct">${fmt(v)}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);width:20px;">👥</span>
+          <div class="br-bar-bg" style="flex:1;"><div class="br-bar-fill" style="width:${pf}%;background:var(--green-lt);"></div></div>
+          <span class="br-pct" style="color:var(--green-lt);">${fmt(f)}</span>
+        </div>
+      </div>
+    `;
+    bb.appendChild(row);
+  });
+}
+
+function renderStatic(){
+  // Static metrics (same across phases)
+  document.getElementById('m-views').textContent     = fmt(DATA.views);
+  document.getElementById('m-followers').textContent = fmt(DATA.followers);
+  document.getElementById('m-videos').textContent    = DATA.videos.toLocaleString('es');
+
+  // Log
+  const entries = DATA.log||[];
+  const logEl   = document.getElementById('log-entries');
+  document.getElementById('log-badge').textContent = entries.length+' entrada'+(entries.length!==1?'s':'');
+  if(!entries.length){
+    logEl.innerHTML='<div class="log-empty"><span class="log-empty-icon">📋</span><span class="log-empty-text">Las actualizaciones aparecerán aquí cada semana.</span></div>';
+  } else {
+    logEl.innerHTML='';
+    [...entries].reverse().forEach(e=>{
+      const d=document.createElement('div');
+      d.className='log-entry';
+      d.innerHTML=`
+        <div class="log-entry-date">${e.date}</div>
+        <div class="log-entry-text">${e.text}</div>
+        ${e.views?`<div class="log-entry-snap">📊 ${fmtFull(e.views)} views en ese momento</div>`:''}
+      `;
+      logEl.appendChild(d);
+    });
+  }
+
+  // Project start
+  document.getElementById('project-start-display').innerHTML =
+    `<span>${START_DATE.getFullYear()}</span> · Día ${daysSince(START_DATE)} del proyecto`;
+
+  renderTracker();
+}
+
+/* ════════════════════════════
+   COUNTERS
+════════════════════════════ */
+let countersStarted = false;
+
+function startCounters(){
+  if(countersStarted) return;
+  countersStarted = true;
+  const dur = 1800;
+  animateCounter(document.getElementById('h-views'),     DATA.views,     dur, fmt);
+  animateCounter(document.getElementById('h-followers'), DATA.followers, dur, fmt);
+  animateCounter(document.getElementById('h-videos'),    DATA.videos,    dur, n=>n.toLocaleString('es'));
+  animateCounter(document.getElementById('h-days'),      daysSince(START_DATE), 1200, n=>n.toString());
+  animateCounter(document.getElementById('m-views'),     DATA.views,     dur, fmt);
+  animateCounter(document.getElementById('m-followers'), DATA.followers, dur, fmt);
+  animateCounter(document.getElementById('m-videos'),    DATA.videos,    dur, n=>n.toLocaleString('es'));
+}
+
+/* ════════════════════════════
+   SCROLL REVEAL
+════════════════════════════ */
+const revealObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      if(e.target.closest('.hero')) startCounters();
+    }
+  });
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+const trackerObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) startCounters(); });
+},{threshold:.05});
+const trackerEl = document.getElementById('tracker');
+if(trackerEl) trackerObs.observe(trackerEl);
+
+/* ════════════════════════════
+   NAV SCROLL SHADOW
+════════════════════════════ */
+window.addEventListener('scroll',()=>{
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY>20);
+},{passive:true});
+
+/* ════════════════════════════
+   INIT
+════════════════════════════ */
+renderStatic();
+setTimeout(startCounters, 600);
+</script>
+</body>
+</html>
